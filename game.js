@@ -365,6 +365,246 @@ const LEVELS = [
         explain: '&lt;nav&gt; está diseñada específicamente para bloques de navegación principal del sitio.'
       }
     ]
+  },
+  {
+    id: 11,
+    title: 'Atributos globales',
+    icon: '🏷️',
+    xp: 160,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 11',
+      title: 'Atributos que todo elemento acepta',
+      body: 'Los <strong>atributos globales</strong> se pueden usar en cualquier elemento HTML. Los más importantes son <code>id</code>, <code>class</code>, <code>style</code>, <code>title</code> y los atributos <code>data-*</code>.',
+      code:
+`&lt;!-- id: identificador único en la página --&gt;
+&lt;div id="cabecera"&gt;...&lt;/div&gt;
+
+&lt;!-- class: agrupa elementos para CSS/JS --&gt;
+&lt;p class="destacado grande"&gt;...&lt;/p&gt;
+
+&lt;!-- title: tooltip al pasar el ratón --&gt;
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;
+
+&lt;!-- data-*: datos personalizados --&gt;
+&lt;button data-usuario-id="42"&gt;Ver perfil&lt;/button&gt;`,
+      tip: '💡 Los id deben ser únicos. Las class pueden repetirse. Usa data-* para guardar datos sin recurrir a JavaScript.'
+    },
+    questions: [
+      {
+        q: '¿Cuántos elementos pueden tener el mismo id en una página?',
+        opts: ['Sin límite', 'Máximo tres', 'Solo uno', 'Depende del navegador'],
+        correct: 2,
+        explain: 'El id debe ser único en toda la página. Si necesitas agrupar elementos usa class, que sí puede repetirse.'
+      },
+      {
+        q: '¿Para qué sirven los atributos data-*?',
+        opts: ['Definen estilos CSS', 'Guardan datos personalizados en el HTML', 'Conectan a una base de datos', 'Solo funcionan en formularios'],
+        correct: 1,
+        explain: 'Los atributos data-* permiten almacenar información extra directamente en el elemento, accesible desde JavaScript con dataset.'
+      }
+    ]
+  },
+  {
+    id: 12,
+    title: 'Div y Span',
+    icon: '📦',
+    xp: 160,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 12',
+      title: 'Contenedores genéricos',
+      body: '<strong>&lt;div&gt;</strong> es un contenedor <strong>de bloque</strong> — ocupa toda la línea. <strong>&lt;span&gt;</strong> es de <strong>línea</strong> — solo ocupa su contenido. Ambos no tienen significado semántico; úsalos solo cuando no haya una etiqueta semántica adecuada.',
+      code:
+`&lt;!-- div: contenedor de bloque --&gt;
+&lt;div class="tarjeta"&gt;
+  &lt;h2&gt;Título&lt;/h2&gt;
+  &lt;p&gt;Descripción del producto.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- span: contenedor en línea --&gt;
+&lt;p&gt;
+  El precio es
+  &lt;span class="precio"&gt;29,99 €&lt;/span&gt;
+  con IVA.
+&lt;/p&gt;`,
+      tip: '💡 Pregúntate siempre: ¿hay una etiqueta semántica mejor? &lt;article&gt;, &lt;section&gt;, &lt;nav&gt;... antes de usar &lt;div&gt;.'
+    },
+    questions: [
+      {
+        q: '¿Cuál es la diferencia principal entre &lt;div&gt; y &lt;span&gt;?',
+        opts: ['&lt;div&gt; es semántico y &lt;span&gt; no', '&lt;div&gt; es de bloque y &lt;span&gt; es de línea', '&lt;span&gt; solo va en formularios', 'No hay diferencia real'],
+        correct: 1,
+        explain: '&lt;div&gt; es un contenedor de bloque (nueva línea). &lt;span&gt; es de línea, ideal para fragmentos de texto dentro de un párrafo.'
+      },
+      {
+        q: '¿Cuándo debería usarse &lt;div&gt;?',
+        opts: ['Siempre, es el mejor contenedor', 'Para texto en negrita', 'Cuando no existe una etiqueta semántica adecuada', 'Solo dentro de formularios'],
+        correct: 2,
+        explain: '&lt;div&gt; no tiene valor semántico. Úsalo como último recurso cuando etiquetas como &lt;article&gt; o &lt;section&gt; no encajen.'
+      }
+    ]
+  },
+  {
+    id: 13,
+    title: 'Audio y Video',
+    icon: '🎬',
+    xp: 170,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 13',
+      title: 'Multimedia nativa en HTML5',
+      body: 'HTML5 añadió &lt;video&gt; y &lt;audio&gt; para incrustar contenido multimedia sin plugins. El atributo <code>controls</code> muestra los controles del navegador. Con <code>&lt;source&gt;</code> puedes ofrecer múltiples formatos.',
+      code:
+`&lt;video controls width="640" poster="portada.jpg"&gt;
+  &lt;source src="video.mp4"  type="video/mp4"&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;
+  Tu navegador no soporta video HTML5.
+&lt;/video&gt;
+
+&lt;audio controls&gt;
+  &lt;source src="cancion.mp3" type="audio/mpeg"&gt;
+  Tu navegador no soporta audio HTML5.
+&lt;/audio&gt;`,
+      tip: '💡 El texto entre las etiquetas de video/audio se muestra solo si el navegador no soporta el elemento — es el fallback.'
+    },
+    questions: [
+      {
+        q: '¿Qué atributo muestra los controles de reproducción?',
+        opts: ['play', 'controls', 'src', 'media'],
+        correct: 1,
+        explain: 'El atributo controls hace que el navegador muestre sus controles nativos: play/pausa, volumen, barra de progreso, etc.'
+      },
+      {
+        q: '¿Para qué sirven varios &lt;source&gt; dentro de &lt;video&gt;?',
+        opts: ['Cargar el video más rápido', 'Ofrecer distintas calidades', 'Proveer formatos alternativos por compatibilidad', 'Añadir subtítulos'],
+        correct: 2,
+        explain: 'Distintos navegadores soportan distintos formatos. Con varios &lt;source&gt; el navegador elige el primero que entienda.'
+      }
+    ]
+  },
+  {
+    id: 14,
+    title: 'Iframes',
+    icon: '🪟',
+    xp: 170,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 14',
+      title: 'Incrustando páginas externas',
+      body: 'El elemento <strong>&lt;iframe&gt;</strong> incrusta otra página web dentro de la actual. Se usa para mapas, videos de YouTube, widgets externos, etc. El atributo <code>sandbox</code> restringe lo que puede hacer el contenido incrustado.',
+      code:
+`&lt;!-- Video de YouTube --&gt;
+&lt;iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/ID"
+  title="Descripción del video"
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+
+&lt;!-- Iframe con sandbox (más seguro) --&gt;
+&lt;iframe
+  src="widget.html"
+  sandbox="allow-scripts"&gt;
+&lt;/iframe&gt;`,
+      tip: '💡 Siempre añade el atributo title a un iframe — los lectores de pantalla lo necesitan para describir el contenido.'
+    },
+    questions: [
+      {
+        q: '¿Qué hace el atributo sandbox en un iframe?',
+        opts: ['Oculta el iframe', 'Restringe las capacidades del contenido incrustado', 'Pone un borde al iframe', 'Permite pantalla completa'],
+        correct: 1,
+        explain: 'sandbox aplica restricciones de seguridad al iframe: bloquea scripts, formularios, popups, etc. a menos que se permitan explícitamente.'
+      },
+      {
+        q: '¿Por qué es importante el atributo title en &lt;iframe&gt;?',
+        opts: ['Mejora el SEO automáticamente', 'Acelera la carga', 'Los lectores de pantalla lo usan para describir el iframe', 'Define el idioma del contenido'],
+        correct: 2,
+        explain: 'Sin title, los usuarios de lectores de pantalla no saben qué contiene el iframe. Es esencial para la accesibilidad.'
+      }
+    ]
+  },
+  {
+    id: 15,
+    title: 'Meta y SEO',
+    icon: '🔍',
+    xp: 170,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 15',
+      title: 'Optimizando para buscadores',
+      body: 'Las etiquetas <strong>&lt;meta&gt;</strong> en el &lt;head&gt; le dan información a buscadores y redes sociales. La meta <code>description</code> aparece en los resultados de Google. Las etiquetas <strong>Open Graph</strong> controlan cómo se ve tu página al compartirla.',
+      code:
+`&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport"
+        content="width=device-width, initial-scale=1"&gt;
+  &lt;meta name="description"
+        content="Aprende HTML desde cero de forma interactiva."&gt;
+
+  &lt;!-- Open Graph (redes sociales) --&gt;
+  &lt;meta property="og:title"       content="HTML Quest"&gt;
+  &lt;meta property="og:description" content="Aprende HTML jugando."&gt;
+  &lt;meta property="og:image"       content="preview.png"&gt;
+
+  &lt;title&gt;HTML Quest&lt;/title&gt;
+&lt;/head&gt;`,
+      tip: '💡 La meta description no afecta directamente el ranking, pero sí el CTR: es el texto que los usuarios leen antes de hacer clic en Google.'
+    },
+    questions: [
+      {
+        q: '¿Dónde deben ir las etiquetas &lt;meta&gt;?',
+        opts: ['En &lt;body&gt;', 'En &lt;footer&gt;', 'En &lt;head&gt;', 'Al final del documento'],
+        correct: 2,
+        explain: 'Las etiquetas &lt;meta&gt; van siempre dentro del &lt;head&gt;, que contiene metadatos no visibles del documento.'
+      },
+      {
+        q: '¿Para qué sirven las etiquetas Open Graph (og:)?',
+        opts: ['Para mejorar el rendimiento', 'Para controlar cómo se ve la página al compartirla en redes sociales', 'Son requeridas por Google', 'Solo sirven para imágenes'],
+        correct: 1,
+        explain: 'Las metas og: definen el título, descripción e imagen que aparecen al compartir una URL en Facebook, Twitter, WhatsApp, etc.'
+      }
+    ]
+  },
+  {
+    id: 16,
+    title: 'Accesibilidad',
+    icon: '♿',
+    xp: 180,
+    doc: 'estructura',
+    lesson: {
+      badge: 'Nivel 16',
+      title: 'HTML accesible con ARIA',
+      body: 'La accesibilidad garantiza que tu web funcione para <strong>todos</strong>, incluidas personas con discapacidades. ARIA (<em>Accessible Rich Internet Applications</em>) son atributos que añaden información para tecnologías de asistencia cuando el HTML no es suficiente.',
+      code:
+`&lt;!-- role: describe el papel del elemento --&gt;
+&lt;div role="alert"&gt;Error: campo obligatorio.&lt;/div&gt;
+
+&lt;!-- aria-label: nombre accesible --&gt;
+&lt;button aria-label="Cerrar ventana"&gt;✕&lt;/button&gt;
+
+&lt;!-- aria-hidden: oculta del lector de pantalla --&gt;
+&lt;span aria-hidden="true"&gt;★&lt;/span&gt;
+
+&lt;!-- aria-expanded: estado de un acordeón/menú --&gt;
+&lt;button aria-expanded="false"&gt;Ver más&lt;/button&gt;`,
+      tip: '💡 La primera regla de ARIA: si puedes usar HTML semántico nativo (&lt;button&gt;, &lt;nav&gt;...), úsalo. ARIA es el complemento, no el sustituto.'
+    },
+    questions: [
+      {
+        q: '¿Qué hace aria-label?',
+        opts: ['Añade una etiqueta visible', 'Proporciona un nombre accesible para lectores de pantalla', 'Define el idioma del elemento', 'Es igual que el atributo title'],
+        correct: 1,
+        explain: 'aria-label ofrece un nombre descriptivo a tecnologías de asistencia cuando el texto visible no es suficiente, como un botón con solo un ícono.'
+      },
+      {
+        q: '¿Cuál es la primera regla de ARIA?',
+        opts: ['Añadir ARIA a todos los elementos', 'Usar siempre role="main"', 'Usar HTML semántico nativo antes que ARIA', 'ARIA es obligatorio en HTML5'],
+        correct: 2,
+        explain: 'Si existe un elemento HTML nativo con el significado correcto (&lt;button&gt;, &lt;nav&gt;, &lt;header&gt;...), úsalo en vez de añadir ARIA a un &lt;div&gt;.'
+      }
+    ]
   }
 ];
 
