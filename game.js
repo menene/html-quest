@@ -412,13 +412,11 @@ function showSelect() {
 function renderGrid() {
   const grid = document.getElementById('levelGrid');
   grid.innerHTML = '';
-  LEVELS.forEach((lvl, idx) => {
+  LEVELS.forEach((lvl) => {
     const p = progress[lvl.id];
-    const prevDone = idx === 0 || progress[LEVELS[idx - 1].id];
-    const locked = !prevDone;
 
     const card = document.createElement('div');
-    card.className = 'level-card' + (p ? ' completed' : '') + (locked ? ' locked' : '');
+    card.className = 'level-card' + (p ? ' completed' : '');
 
     let starsHTML = '';
     if (p) {
@@ -437,7 +435,7 @@ function renderGrid() {
       <div class="lc-xp">${lvl.xp} XP</div>
     `;
 
-    if (!locked) card.onclick = () => showLesson(lvl.id);
+    card.onclick = () => showLesson(lvl.id);
     grid.appendChild(card);
   });
 }

@@ -145,8 +145,6 @@ body {
   box-shadow: 0 8px 28px rgba(34,197,94,0.12);
 }
 .level-card.completed { border-color: rgba(34,197,94,0.25); }
-.level-card.locked { opacity: .45; cursor: not-allowed; }
-.level-card.locked:hover { transform: none; border-color: var(--border); box-shadow: none; }
 
 .lc-num {
   position: absolute;
