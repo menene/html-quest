@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actividad · Crea tu página web</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #0b1120;
+  --surface:    #0f1829;
+  --surface2:   #162035;
+  --border:     #1e293b;
+  --text:       #f1f5f9;
+  --muted:      #64748b;
+  --accent:     #22c55e;
+  --accent-dim: rgba(34,197,94,0.12);
+  --gold:       #f59e0b;
+  --blue:       #3b82f6;
+  --blue-dim:   rgba(59,130,246,0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── Top bar ── */
+.topbar {
+  height: 52px;
+  background: #080f1e;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.topbar-logo {
+  font-weight: 800;
+  font-size: 16px;
+  color: #fff;
+}
+.topbar-logo span { color: var(--accent); }
+.topbar-links { display: flex; gap: 10px; align-items: center; }
+.pill-link {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  text-decoration: none;
+  transition: border-color .15s;
+}
+.pill-link:hover { border-color: var(--accent); }
+
+/* ── Layout ── */
+.page { max-width: 780px; margin: 0 auto; padding: 48px 28px 100px; }
+
+/* ── Hero ── */
+.hero-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-title {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.hero-title span { color: var(--accent); }
+.hero-desc {
+  color: #94a3b8;
+  font-size: 16px;
+  max-width: 560px;
+  margin-bottom: 32px;
+}
+
+/* ── Goal cards ── */
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.goal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px 18px;
+}
+.goal-icon  { font-size: 24px; margin-bottom: 8px; }
+.goal-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.goal-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ── Section heading ── */
+.section-heading {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  margin-top: 52px;
+}
+.section-heading:first-of-type { margin-top: 0; }
+.section-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ── Steps ── */
+.steps { display: flex; flex-direction: column; gap: 16px; }
+
+.step {
+  display: flex;
+  gap: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 22px;
+  align-items: flex-start;
+}
+.step-num {
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  color: #000;
+  font-size: 14px;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-body { flex: 1; }
+.step-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.step-text  { color: #94a3b8; font-size: 14px; line-height: 1.7; }
+.step-text strong { color: var(--text); }
+.step-text code {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #86efac;
+}
+
+/* ── File structure diagram ── */
+.file-tree {
+  background: #060d1a;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin-top: 14px;
+  font-family: monospace;
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 2;
+}
+.file-tree .folder { color: var(--gold); }
+.file-tree .file-html { color: #f97316; }
+.file-tree .file-css  { color: #3b82f6; }
+.file-tree .file-js   { color: var(--gold); }
+
+/* ── Code blocks ── */
+.code-section { margin-top: 14px; }
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 9px 16px;
+}
+.code-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.badge-html { color: #f97316; }
+.badge-css  { color: #3b82f6; }
+.badge-js   { color: var(--gold); }
+
+.copy-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all .15s;
+  font-family: inherit;
+}
+.copy-btn:hover { color: var(--text); border-color: var(--accent); }
+.copy-btn.copied { color: var(--accent); border-color: var(--accent); }
+
+pre.code-block {
+  background: #060d1a;
+  border: 1px solid var(--border);
+  border-radius: 0 0 10px 10px;
+  padding: 20px;
+  overflow-x: auto;
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+  white-space: pre;
+}
+
+/* Syntax colors */
+.t-tag    { color: #f87171; }
+.t-attr   { color: #86efac; }
+.t-val    { color: #fde68a; }
+.t-com    { color: #475569; font-style: italic; }
+.t-prop   { color: #93c5fd; }
+.t-num    { color: #c4b5fd; }
+.t-str    { color: #fde68a; }
+.t-kw     { color: #f472b6; }
+.t-fn     { color: #86efac; }
+
+/* ── Challenges ── */
+.challenges { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.challenge {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.challenge.done { border-color: rgba(34,197,94,0.3); }
+.ch-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.ch-body { flex: 1; }
+.ch-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.ch-desc  { font-size: 13px; color: var(--muted); }
+.ch-desc a { color: var(--accent); text-decoration: none; }
+.ch-desc a:hover { text-decoration: underline; }
+.ch-xp {
+  background: var(--accent-dim);
+  border: 1px solid rgba(34,197,94,0.2);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ── Tip box ── */
+.tip-box {
+  background: rgba(245,158,11,0.08);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: #fcd34d;
+  line-height: 1.65;
+  margin-top: 14px;
+}
+.tip-box a { color: #fcd34d; font-weight: 700; }
+
+.docs-callout {
+  background: var(--blue-dim);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 48px;
+}
+.docs-callout-icon { font-size: 32px; flex-shrink: 0; }
+.docs-callout-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.docs-callout-body p  { font-size: 13px; color: #94a3b8; }
+.docs-callout-body a  { color: var(--blue); font-weight: 700; text-decoration: none; }
+.docs-callout-body a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .goal-grid { grid-template-columns: 1fr; }
+  .hero-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">HTML<span>Quest</span> · <span style="color:var(--muted);font-weight:400">Actividad</span></div>
+  <div class="topbar-links">
+    <a href="index.html" class="pill-link">🚀 Juego</a>
+    <a href="referencia.html" class="pill-link">📚 Docs</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Hero -->
+  <div class="hero-badge">Actividad práctica</div>
+  <h1 class="hero-title">Crea tu primera<br><span>página web</span></h1>
+  <p class="hero-desc">
+    Usarás HTML y CSS para crear una página personal desde cero en VS Code.
+    Copia la plantilla, personalízala con tu información y ábrela en el navegador.
+  </p>
+
+  <!-- Goals -->
+  <div class="goal-grid">
+    <div class="goal-card">
+      <div class="goal-icon">🗂️</div>
+      <div class="goal-title">Crear archivos</div>
+      <div class="goal-desc">Organiza tu proyecto con index.html, styles.css y script.js</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">✏️</div>
+      <div class="goal-title">Personalizar</div>
+      <div class="goal-desc">Cambia textos, colores y estructura para que sea tuya</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-icon">🌐</div>
+      <div class="goal-title">Ver en el navegador</div>
+      <div class="goal-desc">Abre tu página en Chrome o Firefox y comprueba el resultado</div>
+    </div>
+  </div>
+
+  <!-- Step by step -->
+  <h2 class="section-heading">Instrucciones paso a paso</h2>
+  <p class="section-sub">Sigue estos pasos en orden. Si tienes dudas, consulta la documentación.</p>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">Abre VS Code</div>
+        <div class="step-text">
+          Lanza Visual Studio Code. Si no lo tienes instalado, descárgalo desde
+          <strong>code.visualstudio.com</strong>. Es el editor que usaremos durante toda la actividad.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">Crea una carpeta para tu proyecto</div>
+        <div class="step-text">
+          En tu escritorio o en la carpeta que prefieras, crea una nueva carpeta.
+          Ponle el nombre de tu grupo o tu nombre, por ejemplo: <code>mi-web</code>.<br><br>
+          Luego en VS Code ve a <strong>Archivo → Abrir carpeta</strong> y selecciónala.
+          Esto será tu espacio de trabajo.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">Crea los tres archivos</div>
+        <div class="step-text">
+          En el panel de la izquierda de VS Code, haz clic en el icono de nuevo archivo
+          y crea estos tres archivos exactamente con estos nombres:
+        </div>
+        <div class="file-tree">
+          <span class="folder">📁 mi-web/</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="file-html">📄 index.html</span>&nbsp;&nbsp;&nbsp;<span style="color:#475569">← estructura de la página</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="file-css">📄 styles.css</span>&nbsp;&nbsp;&nbsp;<span style="color:#475569">← colores y diseño</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="file-js">📄 script.js</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569">← interactividad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">Copia el código en cada archivo</div>
+        <div class="step-text">
+          Copia el código de abajo en el archivo correspondiente.
+          Usa el botón <strong>Copiar</strong> de cada bloque y pega con <code>Ctrl+V</code> (o <code>Cmd+V</code> en Mac).
+          Guarda cada archivo con <code>Ctrl+S</code> después de pegar.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">Abre tu página en el navegador</div>
+        <div class="step-text">
+          <strong>Opción A (recomendada):</strong> Instala la extensión <strong>Live Server</strong> en VS Code.
+          Luego haz clic derecho sobre <code>index.html</code> y selecciona
+          <em>"Open with Live Server"</em>. La página se recargará sola cada vez que guardes.<br><br>
+          <strong>Opción B:</strong> Abre el explorador de archivos, busca tu carpeta
+          y haz doble clic en <code>index.html</code>. Se abrirá directamente en el navegador.
+        </div>
+        <div class="tip-box" style="margin-top:12px">
+          💡 Con Live Server los cambios se ven al instante. Sin él, tendrás que recargar la página
+          manualmente con <code>F5</code> cada vez que guardes.
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">Personaliza la página con tu información</div>
+        <div class="step-text">
+          Ahora que la plantilla funciona, es tu turno. Cambia los textos, colores y
+          estructura. Mira los retos de más abajo para saber qué puedes modificar.
+          <br><br>
+          <strong>Recuerda:</strong> si no entiendes alguna etiqueta, consulta la
+          <a href="referencia.html" style="color:var(--accent)">documentación</a>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Code templates -->
+  <h2 class="section-heading">Código de la plantilla</h2>
+  <p class="section-sub">Copia cada bloque en su archivo correspondiente.</p>
+
+  <!-- index.html -->
+  <div class="code-section">
+    <div class="code-header">
+      <div class="code-label">
+        <span class="badge-html">●</span>
+        <span>index.html</span>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this, 'code-html')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+    <pre class="code-block" id="code-html"><span class="t-com">&lt;!-- index.html · Estructura de tu página --&gt;</span>
+<span class="t-tag">&lt;!DOCTYPE html&gt;</span>
+<span class="t-tag">&lt;html</span> <span class="t-attr">lang</span>=<span class="t-val">"es"</span><span class="t-tag">&gt;</span>
+<span class="t-tag">&lt;head&gt;</span>
+    <span class="t-tag">&lt;meta</span> <span class="t-attr">charset</span>=<span class="t-val">"UTF-8"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;meta</span> <span class="t-attr">name</span>=<span class="t-val">"viewport"</span> <span class="t-attr">content</span>=<span class="t-val">"width=device-width, initial-scale=1.0"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;title&gt;</span>Mi Primera Página Web<span class="t-tag">&lt;/title&gt;</span>
+    <span class="t-tag">&lt;link</span> <span class="t-attr">rel</span>=<span class="t-val">"stylesheet"</span> <span class="t-attr">href</span>=<span class="t-val">"styles.css"</span><span class="t-tag">&gt;</span>
+<span class="t-tag">&lt;/head&gt;</span>
+<span class="t-tag">&lt;body&gt;</span>
+
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"container"</span><span class="t-tag">&gt;</span>
+
+        <span class="t-com">&lt;!-- CAMBIA ESTO: pon tu nombre --&gt;</span>
+        <span class="t-tag">&lt;h1</span> <span class="t-attr">id</span>=<span class="t-val">"name"</span><span class="t-tag">&gt;</span>Tu Nombre Aquí<span class="t-tag">&lt;/h1&gt;</span>
+
+        <span class="t-tag">&lt;p</span> <span class="t-attr">class</span>=<span class="t-val">"intro"</span><span class="t-tag">&gt;</span>
+            Hola, soy estudiante y esta es mi primera página web.
+        <span class="t-tag">&lt;/p&gt;</span>
+
+        <span class="t-tag">&lt;section&gt;</span>
+            <span class="t-tag">&lt;h2&gt;</span>Mis hobbies<span class="t-tag">&lt;/h2&gt;</span>
+            <span class="t-com">&lt;!-- CAMBIA ESTO: añade tus propios hobbies --&gt;</span>
+            <span class="t-tag">&lt;ul</span> <span class="t-attr">id</span>=<span class="t-val">"hobbyList"</span><span class="t-tag">&gt;</span>
+                <span class="t-tag">&lt;li&gt;</span>Escribe un hobby<span class="t-tag">&lt;/li&gt;</span>
+                <span class="t-tag">&lt;li&gt;</span>Escribe otro hobby<span class="t-tag">&lt;/li&gt;</span>
+            <span class="t-tag">&lt;/ul&gt;</span>
+        <span class="t-tag">&lt;/section&gt;</span>
+
+        <span class="t-tag">&lt;section&gt;</span>
+            <span class="t-tag">&lt;h2&gt;</span>Mi sueño profesional<span class="t-tag">&lt;/h2&gt;</span>
+            <span class="t-com">&lt;!-- CAMBIA ESTO: escribe tu sueño --&gt;</span>
+            <span class="t-tag">&lt;p</span> <span class="t-attr">id</span>=<span class="t-val">"dream"</span><span class="t-tag">&gt;</span>
+                Aquí puedes escribir qué te gustaría crear si estudias tecnología.
+            <span class="t-tag">&lt;/p&gt;</span>
+        <span class="t-tag">&lt;/section&gt;</span>
+
+        <span class="t-tag">&lt;button</span> <span class="t-attr">onclick</span>=<span class="t-val">"alert('¡Hola!')"</span><span class="t-tag">&gt;</span>Contáctame<span class="t-tag">&lt;/button&gt;</span>
+
+    <span class="t-tag">&lt;/div&gt;</span>
+
+    <span class="t-tag">&lt;script</span> <span class="t-attr">src</span>=<span class="t-val">"script.js"</span><span class="t-tag">&gt;&lt;/script&gt;</span>
+<span class="t-tag">&lt;/body&gt;</span>
+<span class="t-tag">&lt;/html&gt;</span></pre>
+  </div>
+
+  <!-- styles.css -->
+  <div class="code-section" style="margin-top:24px">
+    <div class="code-header">
+      <div class="code-label">
+        <span class="badge-css">●</span>
+        <span>styles.css</span>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this, 'code-css')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+    <pre class="code-block" id="code-css"><span class="t-com">/* styles.css · Diseño y colores de tu página */</span>
+
+<span class="t-prop">body</span> {
+    <span class="t-attr">font-family</span>: <span class="t-val">Arial, sans-serif</span>;
+    <span class="t-attr">background-color</span>: <span class="t-val">#f4f6f9</span>; <span class="t-com">/* ← cambia el color de fondo */</span>
+    <span class="t-attr">margin</span>: <span class="t-num">0</span>;
+    <span class="t-attr">padding</span>: <span class="t-num">0</span>;
+}
+
+<span class="t-prop">.container</span> {
+    <span class="t-attr">max-width</span>: <span class="t-num">600px</span>;
+    <span class="t-attr">margin</span>: <span class="t-num">40px</span> auto;
+    <span class="t-attr">background-color</span>: <span class="t-val">white</span>;
+    <span class="t-attr">padding</span>: <span class="t-num">30px</span>;
+    <span class="t-attr">border-radius</span>: <span class="t-num">10px</span>;
+    <span class="t-attr">box-shadow</span>: <span class="t-num">0 4px 12px</span> <span class="t-val">rgba(0,0,0,0.1)</span>;
+    <span class="t-attr">text-align</span>: <span class="t-val">center</span>;
+}
+
+<span class="t-prop">h1</span> {
+    <span class="t-attr">color</span>: <span class="t-val">#1f3c88</span>; <span class="t-com">/* ← cambia el color del título */</span>
+    <span class="t-attr">margin-bottom</span>: <span class="t-num">10px</span>;
+}
+
+<span class="t-prop">h2</span> {
+    <span class="t-attr">color</span>: <span class="t-val">#333</span>;
+    <span class="t-attr">margin-top</span>: <span class="t-num">30px</span>;
+}
+
+<span class="t-prop">.intro</span> {
+    <span class="t-attr">font-size</span>: <span class="t-num">16px</span>;
+    <span class="t-attr">color</span>: <span class="t-val">#555</span>;
+}
+
+<span class="t-prop">ul</span> {
+    <span class="t-attr">list-style-type</span>: <span class="t-val">square</span>;
+    <span class="t-attr">padding-left</span>: <span class="t-num">20px</span>;
+    <span class="t-attr">text-align</span>: <span class="t-val">left</span>;
+}
+
+<span class="t-prop">button</span> {
+    <span class="t-attr">margin-top</span>: <span class="t-num">25px</span>;
+    <span class="t-attr">padding</span>: <span class="t-num">12px 20px</span>;
+    <span class="t-attr">font-size</span>: <span class="t-num">16px</span>;
+    <span class="t-attr">background-color</span>: <span class="t-val">#1f3c88</span>; <span class="t-com">/* ← cambia el color del botón */</span>
+    <span class="t-attr">color</span>: <span class="t-val">white</span>;
+    <span class="t-attr">border</span>: <span class="t-val">none</span>;
+    <span class="t-attr">border-radius</span>: <span class="t-num">6px</span>;
+    <span class="t-attr">cursor</span>: <span class="t-val">pointer</span>;
+}
+
+<span class="t-prop">button:hover</span> {
+    <span class="t-attr">background-color</span>: <span class="t-val">#162d63</span>;
+}</pre>
+  </div>
+
+  <!-- script.js -->
+  <div class="code-section" style="margin-top:24px">
+    <div class="code-header">
+      <div class="code-label">
+        <span class="badge-js">●</span>
+        <span>script.js</span>
+      </div>
+      <button class="copy-btn" onclick="copyBlock(this, 'code-js')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        Copiar
+      </button>
+    </div>
+    <pre class="code-block" id="code-js"><span class="t-com">// script.js · No hace falta que lo entiendas todo, ¡solo pégalo!</span>
+
+<span class="t-kw">const</span> <span class="t-fn">button</span> = document.<span class="t-fn">querySelector</span>(<span class="t-str">"button"</span>);
+
+button.<span class="t-fn">addEventListener</span>(<span class="t-str">"click"</span>, <span class="t-kw">function</span>() {
+    <span class="t-kw">const</span> name = document.<span class="t-fn">getElementById</span>(<span class="t-str">"name"</span>).innerText;
+    <span class="t-fn">alert</span>(<span class="t-str">"¡Hola! Soy "</span> + name + <span class="t-str">". ¡Gracias por visitar mi página!"</span>);
+});</pre>
+  </div>
+
+  <!-- Challenges -->
+  <h2 class="section-heading">Retos de personalización</h2>
+  <p class="section-sub">Una vez que la plantilla funciona, intenta hacer estos cambios.</p>
+
+  <div class="challenges">
+    <div class="challenge">
+      <div class="ch-icon">✏️</div>
+      <div class="ch-body">
+        <div class="ch-title">Cambia el título y la presentación</div>
+        <div class="ch-desc">
+          Reemplaza "Tu Nombre Aquí" por tu nombre real y actualiza el párrafo de presentación.
+          Busca cómo funciona <code>&lt;h1&gt;</code> y <code>&lt;p&gt;</code> en la
+          <a href="referencia.html?s=encabezados">documentación de encabezados</a>.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 1</div>
+    </div>
+
+    <div class="challenge">
+      <div class="ch-icon">🎨</div>
+      <div class="ch-body">
+        <div class="ch-title">Cambia los colores</div>
+        <div class="ch-desc">
+          En <code>styles.css</code>, cambia los valores de <code>color</code> y
+          <code>background-color</code>. Prueba con colores como <code>#ff6b6b</code>,
+          <code>#0ea5e9</code> o <code>#8b5cf6</code>.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 2</div>
+    </div>
+
+    <div class="challenge">
+      <div class="ch-icon">📋</div>
+      <div class="ch-body">
+        <div class="ch-title">Añade más hobbies a la lista</div>
+        <div class="ch-desc">
+          Añade más <code>&lt;li&gt;</code> dentro del <code>&lt;ul&gt;</code>.
+          Aprende más sobre listas en la <a href="referencia.html?s=listas">documentación de listas</a>.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 2</div>
+    </div>
+
+    <div class="challenge">
+      <div class="ch-icon">🖼️</div>
+      <div class="ch-body">
+        <div class="ch-title">Añade una imagen</div>
+        <div class="ch-desc">
+          Usa <code>&lt;img src="..." alt="..."&gt;</code> para añadir una foto o imagen.
+          Consulta la <a href="referencia.html?s=imagenes">documentación de imágenes</a> para ver cómo hacerlo.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 3</div>
+    </div>
+
+    <div class="challenge">
+      <div class="ch-icon">🔗</div>
+      <div class="ch-body">
+        <div class="ch-title">Añade un enlace a tu red social favorita</div>
+        <div class="ch-desc">
+          Usa <code>&lt;a href="..."&gt;</code> para añadir un enlace.
+          Mira la <a href="referencia.html?s=enlaces">documentación de enlaces</a> para saber cómo abrirlo en nueva pestaña.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 3</div>
+    </div>
+
+    <div class="challenge">
+      <div class="ch-icon">🏗️</div>
+      <div class="ch-body">
+        <div class="ch-title">Añade una nueva sección</div>
+        <div class="ch-desc">
+          Crea una nueva <code>&lt;section&gt;</code> con un <code>&lt;h2&gt;</code> y contenido propio.
+          Puede ser sobre tu música favorita, tu película preferida o cualquier tema.
+        </div>
+      </div>
+      <div class="ch-xp">Nivel 4</div>
+    </div>
+  </div>
+
+  <!-- Docs callout -->
+  <div class="docs-callout">
+    <div class="docs-callout-icon">📚</div>
+    <div class="docs-callout-body">
+      <h3>¿Tienes dudas? Consulta la documentación</h3>
+      <p>
+        Todos los elementos HTML que usas en esta actividad están explicados con ejemplos y código
+        listo para copiar en la documentación de referencia.
+        <br>
+        <a href="referencia.html">Abrir documentación →</a>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function copyBlock(btn, id) {
+  // Get raw text without HTML tags
+  const pre = document.getElementById(id);
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Copiado`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar`;
+    }, 2500);
+  });
+}
+</script>
+
+</body>
+</html>

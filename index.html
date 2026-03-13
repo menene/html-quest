@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Quest</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── SELECT ── -->
+<div id="screen-select" class="screen active">
+  <header class="game-header">
+    <div class="game-logo">HTML<span>Quest</span></div>
+    <div class="header-right">
+      <div class="xp-badge">⚡ <span id="totalXP">0</span> XP</div>
+      <a href="actividad.html" target="_blank" class="docs-pill">🛠️ Actividad</a>
+      <a href="referencia.html" target="_blank" class="docs-pill">📚 Docs</a>
+    </div>
+  </header>
+  <div class="select-hero">
+    <h1>Aprende HTML jugando</h1>
+    <p>Completa los 10 niveles, gana XP y domina el lenguaje de la web.</p>
+    <div class="overall-progress">
+      <div class="overall-bar"><div class="overall-fill" id="overallFill"></div></div>
+      <span id="overallText">0 / 10 niveles</span>
+      <button class="reset-btn" onclick="resetProgress()" title="Reiniciar progreso">↺</button>
+    </div>
+  </div>
+
+  <!-- Reset confirmation modal -->
+  <div id="resetModal" class="modal-overlay" style="display:none">
+    <div class="modal-box">
+      <div class="modal-icon">⚠️</div>
+      <h3>¿Reiniciar progreso?</h3>
+      <p>Se borrarán todos los niveles completados y el XP acumulado. Esta acción no se puede deshacer.</p>
+      <div class="modal-actions">
+        <button class="secondary-btn" onclick="closeModal()">Cancelar</button>
+        <button class="danger-btn" onclick="confirmReset()">Sí, reiniciar</button>
+      </div>
+    </div>
+  </div>
+  <div class="level-grid" id="levelGrid"></div>
+</div>
+
+<!-- ── LESSON ── -->
+<div id="screen-lesson" class="screen">
+  <div class="screen-inner">
+    <div class="screen-topbar">
+      <button class="back-btn" onclick="showSelect()">← Niveles</button>
+      <a id="lessonDocsLink" href="referencia.html" target="_blank" class="docs-pill small">📚 Ver en docs</a>
+    </div>
+    <div class="lesson-badge" id="lessonBadge"></div>
+    <h2 class="lesson-title" id="lessonTitle"></h2>
+    <div class="lesson-body" id="lessonBody"></div>
+    <div class="lesson-code-wrap">
+      <div class="lesson-code-bar">HTML</div>
+      <pre class="lesson-code" id="lessonCode"></pre>
+    </div>
+    <div class="lesson-tip" id="lessonTip"></div>
+    <button class="primary-btn full-w" onclick="startQuestions()">Empezar preguntas →</button>
+  </div>
+</div>
+
+<!-- ── QUESTION ── -->
+<div id="screen-question" class="screen">
+  <div class="screen-inner">
+    <div class="screen-topbar">
+      <button class="back-btn" onclick="backToLesson()">← Lección</button>
+      <div class="q-dots" id="qDots"></div>
+    </div>
+    <div class="question-card">
+      <div class="q-label" id="qLabel"></div>
+      <h3 class="q-text" id="qText"></h3>
+      <div class="options-grid" id="optionsGrid"></div>
+    </div>
+    <div class="q-feedback" id="qFeedback"></div>
+  </div>
+</div>
+
+<!-- ── LEVEL COMPLETE ── -->
+<div id="screen-levelcomplete" class="screen">
+  <div class="screen-inner centered">
+    <div class="big-icon" id="lcIcon"></div>
+    <h2 id="lcTitle"></h2>
+    <div class="stars-row" id="lcStars"></div>
+    <div class="xp-pill" id="lcXP"></div>
+    <p class="lc-msg" id="lcMsg"></p>
+    <div class="action-row">
+      <button class="secondary-btn" onclick="showSelect()">Ver niveles</button>
+      <button class="primary-btn" id="nextLevelBtn" onclick="goNextLevel()">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── GAME COMPLETE ── -->
+<div id="screen-gamecomplete" class="screen">
+  <div class="screen-inner centered">
+    <div class="big-icon">🏆</div>
+    <h2>¡HTML dominado!</h2>
+    <p style="color:var(--muted);margin-bottom:24px">Has completado los 10 niveles de HTML Quest.</p>
+    <div class="xp-pill" id="finalXP"></div>
+    <br><br>
+    <button class="primary-btn" onclick="showSelect()">Ver todos los niveles</button>
+  </div>
+</div>
+
+<canvas id="confettiCanvas"></canvas>
+<script src="game.js"></script>
+</body>
+</html>
