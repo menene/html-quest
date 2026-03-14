@@ -698,6 +698,36 @@ let activeQuestionIdx = 0;
 let correctCount      = 0;
 let awaitingNext      = false;
 
+let questionTimer = null;
+const QUESTION_TIME = 15;
+
+function startTimer() {
+  clearTimer();
+  let timeLeft = QUESTION_TIME;
+  updateTimer(timeLeft);
+  questionTimer = setInterval(() => {
+    timeLeft--;
+    updateTimer(timeLeft);
+    if (timeLeft <= 0) {
+      clearTimer();
+      pickAnswer(-1);
+    }
+  }, 1000);
+}
+
+function clearTimer() {
+  if (questionTimer) { clearInterval(questionTimer); questionTimer = null; }
+}
+
+function updateTimer(t) {
+  const countEl = document.getElementById('qTimerCount');
+  const fillEl  = document.getElementById('qTimerFill');
+  const timerEl = document.getElementById('qTimer');
+  if (countEl) countEl.textContent = t;
+  if (fillEl)  { fillEl.style.width = (t / QUESTION_TIME * 100) + '%'; fillEl.classList.toggle('urgent', t <= 5); }
+  if (timerEl) timerEl.classList.toggle('urgent', t <= 5);
+}
+
 let progress = JSON.parse(localStorage.getItem('htmlquest') || '{}');
 // { "1": { stars: 3, xp: 100 }, ... }
 
@@ -781,6 +811,7 @@ function showLesson(levelId) {
 }
 
 function backToLesson() {
+  clearTimer();
   showLesson(activeLevelId);
   showScreen('lesson');
 }
@@ -824,11 +855,14 @@ function renderQuestion() {
   const fb = document.getElementById('qFeedback');
   fb.className = 'q-feedback';
   fb.style.display = 'none';
+
+  startTimer();
 }
 
 function pickAnswer(selected) {
   if (awaitingNext) return;
   awaitingNext = true;
+  clearTimer();
 
   const lvl = LEVELS.find(l => l.id === activeLevelId);
   const q   = lvl.questions[activeQuestionIdx];

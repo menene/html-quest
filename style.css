@@ -294,6 +294,37 @@ body {
 .secondary-btn:hover { border-color: var(--accent); }
 
 /* ── Questions ── */
+/* ── Question timer ── */
+.q-timer {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 40px;
+  text-align: center;
+  transition: color .3s, border-color .3s;
+}
+.q-timer.urgent { color: var(--wrong); border-color: var(--wrong); }
+
+.q-timer-bar {
+  height: 3px;
+  background: var(--surface2);
+  border-radius: 3px;
+  margin: -20px 0 24px;
+  overflow: hidden;
+}
+.q-timer-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 1s linear, background .3s;
+  width: 100%;
+}
+.q-timer-fill.urgent { background: var(--wrong); }
+
 .q-dots { display: flex; gap: 6px; }
 .q-dot {
   width: 28px; height: 4px; border-radius: 4px;
