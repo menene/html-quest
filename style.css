@@ -12,7 +12,30 @@
   --wrong:      #ef4444;
   --wrong-dim:  rgba(239,68,68,0.14);
   --gold:       #f59e0b;
+  --header-bg:  #080f1e;
 }
+
+[data-theme="light"] {
+  --bg:         #f0f4f8;
+  --surface:    #ffffff;
+  --surface2:   #e8edf3;
+  --border:     #d1d9e0;
+  --text:       #1a2332;
+  --muted:      #6b7a8d;
+  --accent:     #16a34a;
+  --accent-dim: rgba(22,163,74,0.1);
+  --wrong:      #dc2626;
+  --wrong-dim:  rgba(220,38,38,0.1);
+  --gold:       #d97706;
+  --header-bg:  #ffffff;
+}
+[data-theme="light"] .game-header { border-bottom-color: var(--border); }
+[data-theme="light"] .game-logo   { color: var(--text); }
+[data-theme="light"] .lesson-body { color: #3d4f61; }
+[data-theme="light"] .lesson-body strong { color: var(--text); }
+[data-theme="light"] .lesson-body code   { color: #1d4ed8; }
+[data-theme="light"] .q-feedback.correct { color: #15803d; }
+[data-theme="light"] .q-feedback.wrong   { color: #b91c1c; }
 
 body {
   background: var(--bg);
@@ -51,7 +74,7 @@ body {
   align-items: center;
   padding: 0 24px;
   height: 52px;
-  background: #080f1e;
+  background: var(--header-bg);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
 }
@@ -364,6 +387,21 @@ body {
 
 /* ── Canvas ── */
 canvas { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: border-color .15s;
+}
+.theme-toggle:hover { border-color: var(--accent); }
 
 /* ── Reset button ── */
 .reset-btn {

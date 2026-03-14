@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HTML Quest</title>
 <link rel="stylesheet" href="style.css">
+<script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body>
 
@@ -16,6 +17,7 @@
       <div class="xp-badge">⚡ <span id="totalXP">0</span> XP</div>
       <a href="actividad.html" target="_blank" class="docs-pill">🛠️ Actividad</a>
       <a href="referencia.html" target="_blank" class="docs-pill">📚 Docs</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">☀️</button>
     </div>
   </header>
   <div class="select-hero">
@@ -107,5 +109,18 @@
 
 <canvas id="confettiCanvas"></canvas>
 <script src="game.js"></script>
+<script>
+function toggleTheme() {
+  var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  document.getElementById('themeToggle').textContent = next === 'light' ? '🌙' : '☀️';
+}
+(function(){
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.textContent = t === 'light' ? '🌙' : '☀️';
+})();
+</script>
 </body>
 </html>
