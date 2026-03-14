@@ -605,6 +605,89 @@ const LEVELS = [
         explain: 'Si existe un elemento HTML nativo con el significado correcto (&lt;button&gt;, &lt;nav&gt;, &lt;header&gt;...), úsalo en vez de añadir ARIA a un &lt;div&gt;.'
       }
     ]
+  },
+  {
+    id: 17,
+    title: 'Tipos de input',
+    icon: '🎛️',
+    xp: 180,
+    doc: 'formularios',
+    lesson: {
+      badge: 'Nivel 17',
+      title: 'Inputs avanzados en formularios',
+      body: 'Más allá de <code>type="text"</code>, HTML ofrece muchos tipos de input especializados. Cada uno activa validaciones nativas del navegador y teclados optimizados en móviles. También existen <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code> y los controles de selección múltiple.',
+      code:
+`&lt;input type="checkbox" id="acepto" name="acepto"&gt;
+&lt;label for="acepto"&gt;Acepto los términos&lt;/label&gt;
+
+&lt;input type="radio" id="op1" name="opcion" value="a"&gt;
+&lt;label for="op1"&gt;Opción A&lt;/label&gt;
+
+&lt;select name="pais"&gt;
+  &lt;option value="es"&gt;España&lt;/option&gt;
+  &lt;option value="mx"&gt;México&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;textarea name="comentario" rows="4"&gt;&lt;/textarea&gt;
+
+&lt;input type="range" min="0" max="100" value="50"&gt;
+&lt;input type="date" name="fecha"&gt;`,
+      tip: '💡 Los radio buttons con el mismo atributo name forman un grupo: solo uno puede estar seleccionado a la vez.'
+    },
+    questions: [
+      {
+        q: '¿Cómo se agrupan los radio buttons para que solo uno sea seleccionable a la vez?',
+        opts: ['Con el mismo id', 'Con el mismo name', 'Dentro del mismo &lt;div&gt;', 'Con el atributo group'],
+        correct: 1,
+        explain: 'Los &lt;input type="radio"&gt; con el mismo atributo name forman un grupo. El navegador garantiza que solo uno esté marcado.'
+      },
+      {
+        q: '¿Qué elemento permite al usuario escribir texto de varias líneas?',
+        opts: ['&lt;input type="multiline"&gt;', '&lt;input type="text" rows="4"&gt;', '&lt;textarea&gt;', '&lt;select multiple&gt;'],
+        correct: 2,
+        explain: '&lt;textarea&gt; es el elemento para texto de varias líneas. Su tamaño se controla con los atributos rows y cols.'
+      }
+    ]
+  },
+  {
+    id: 18,
+    title: 'Entidades HTML',
+    icon: '🔤',
+    xp: 190,
+    doc: 'texto',
+    lesson: {
+      badge: 'Nivel 18',
+      title: 'Caracteres especiales y entidades',
+      body: 'Las <strong>entidades HTML</strong> son códigos para representar caracteres que el navegador podría confundir con código, o que no están en el teclado. Empiezan con <code>&amp;</code> y terminan con <code>;</code>. Pueden ser nombradas (<code>&amp;amp;</code>) o numéricas (<code>&amp;#38;</code>).',
+      code:
+`&lt;!-- Caracteres reservados --&gt;
+&amp;lt;   → &lt;   (menor que)
+&amp;gt;   → &gt;   (mayor que)
+&amp;amp;  → &amp;   (ampersand)
+&amp;quot; → "   (comilla doble)
+
+&lt;!-- Espacios y tipografía --&gt;
+&amp;nbsp;  → espacio irrompible
+&amp;copy;  → ©
+&amp;reg;   → ®
+&amp;mdash; → —   (raya)
+&amp;euro;  → €`,
+      tip: '💡 &amp;nbsp; evita que el navegador rompa una línea entre dos palabras. Útil para "10 km" o "Artículo 5".'
+    },
+    questions: [
+      {
+        q: '¿Cómo se escribe el símbolo < en HTML sin que el navegador lo interprete como etiqueta?',
+        opts: ['\\<', '&amp;lt;', '&amp;smaller;', '(lt)'],
+        correct: 1,
+        explain: '&amp;lt; es la entidad HTML para el carácter "menor que" (&lt;). Sin ella, el navegador lo trataría como apertura de etiqueta.'
+      },
+      {
+        q: '¿Qué hace &amp;nbsp; en HTML?',
+        opts: ['Añade una línea en blanco', 'Inserta un espacio irrompible entre palabras', 'Crea un párrafo nuevo', 'Es un comentario invisible'],
+        correct: 1,
+        explain: '&amp;nbsp; (non-breaking space) inserta un espacio que el navegador no romperá al final de línea. Ideal para unidades o nombres compuestos.'
+      }
+    ]
   }
 ];
 
