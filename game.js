@@ -872,12 +872,13 @@ function advanceQuestion() {
 function showLevelComplete() {
   const lvl  = LEVELS.find(l => l.id === activeLevelId);
   const tot  = lvl.questions.length;
-  const stars = correctCount === tot ? 3 : correctCount >= Math.ceil(tot / 2) ? 2 : 1;
+  const stars = correctCount === tot ? 3 : correctCount > 0 ? 2 : 1;
+  const earnedXP = correctCount === tot ? lvl.xp : correctCount > 0 ? Math.floor(lvl.xp / 2) : 0;
 
-  // Save best result
+  // Save best result; always mark as done even with 0 correct
   const prev = progress[lvl.id];
   if (!prev || prev.stars < stars) {
-    progress[lvl.id] = { stars, xp: lvl.xp };
+    progress[lvl.id] = { stars, xp: earnedXP };
     saveProgress();
   }
 
@@ -891,7 +892,7 @@ function showLevelComplete() {
   document.getElementById('lcIcon').textContent  = icons[stars - 1];
   document.getElementById('lcTitle').textContent = stars === 3 ? '¡Nivel completado!' : 'Nivel superado';
   document.getElementById('lcStars').innerHTML   = starsHTML(stars);
-  document.getElementById('lcXP').textContent    = `+${lvl.xp} XP`;
+  document.getElementById('lcXP').textContent    = earnedXP > 0 ? `+${earnedXP} XP` : '0 XP';
   document.getElementById('lcMsg').textContent   = msgs[stars - 1];
   document.getElementById('totalXP').textContent = totalXP();
 

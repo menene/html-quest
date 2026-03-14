@@ -36,6 +36,11 @@
 [data-theme="light"] .lesson-body code   { color: #1d4ed8; }
 [data-theme="light"] .q-feedback.correct { color: #15803d; }
 [data-theme="light"] .q-feedback.wrong   { color: #b91c1c; }
+[data-theme="light"] .lesson-tip {
+  background: rgba(161,98,7,0.08);
+  border-color: rgba(161,98,7,0.25);
+  color: #92400e;
+}
 
 body {
   background: var(--bg);
